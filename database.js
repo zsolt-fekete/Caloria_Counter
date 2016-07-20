@@ -38,13 +38,25 @@ const dbQuerires = (function(con) {
    con.query("INSERT INTO Caloria (name, calories, date) VALUES ('" + req.body.name + "','" + req.body.calories + "','" + req.body.date + "')",
     function (err, result) {
       errorHandling(err);
-      callback({status:"ok"});
+      callback({id:result.insertId, status:"ok"});
    });
   }
+
+  function deleteMeal(id, callback) {;
+  con.query('DELETE FROM Caloria WHERE id ='+id, function(err,response){
+    errorHandling(err);
+    if (response.affectedRows === 1) {
+      callback({status:"ok"});
+    } else if (response.affectedRows === 0) {
+      callback({status: "not exists"});
+    }
+  });
+}
 
   return {
     getAll,
     addNewMeal,
+    deleteMeal,
   }
 }(con));
 

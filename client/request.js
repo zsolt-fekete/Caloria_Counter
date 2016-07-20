@@ -20,10 +20,16 @@ const request = (function(){
   }
 
   function addElementDatabase(inputdata, callback) {
+    console.log(inputdata.name);
     xhrRequest('POST', host, inputdata, callback);
   }
 
+  function deleteElement(iD, callback) {
+    xhrRequest('DELETE', host + iD, null, callback);
+  }
+
   return {
+    deleteElement,
     getAllfromDatabase,
     addElementDatabase,
   };

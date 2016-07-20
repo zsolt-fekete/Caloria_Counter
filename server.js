@@ -20,4 +20,16 @@ app.post('/meals',function(req, res) {
   });
 });
 
+app.delete('/meals/:id',function(req, res) {
+  db.deleteMeal(req.params.id, function (result) {
+    res.json(result);
+  });
+});
+
+
+
+
+
+
+
 app.listen(3000);
