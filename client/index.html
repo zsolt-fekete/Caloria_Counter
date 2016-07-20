@@ -9,7 +9,20 @@
     </header>
     <main>
       <h1>Caloria_Counter</h1>
+      <form class="button" id="my-form" action="#">
+        <input  class="text_input" type="text" required  placeholder=" Type..."/>
+        <input  class="calories_input" type="number" required/>
+        <input  class="date_input" type="datetime-local" required/>
+      <div class=buttons>
+        <button class="add_button" type="submit">Add</button>
+        <button class="delete_button" type="submit">delete</button>
+        <button class="filter_button" type="submit">filter</button>
+      </div>
+      </form>
+      <ul class="meals"></ul>
     </main>
+    <script src="request.js"></script>
+    <script src="display.js"></script>
     <script src="index.js"></script>
   </body>
 </html>
