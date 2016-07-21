@@ -1,61 +1,62 @@
 'use strict';
 
-const addButton = document.querySelector('.add_button');
-const deleteButton = document.querySelector('.delete_button');
-const inputtext = document.querySelector('.text_input');
-const inputcal = document.querySelector('.calories_input');
-const inputdate = document.querySelector('.date_input');
-const deleteLine = document.querySelector('ul');
+const controller = (function(){
 
-addButton.addEventListener('click', addNewElement);
-deleteButton.addEventListener('click', deleteElement);
-deleteLine.addEventListener('click', findRow);
-var lastId;
-
-function getInputData() {
-  let data = {
-    name: inputtext.value,
-    calories: inputcal.value,
-    date: inputdate.value,
-  };
-  return data;
-}
-
-function addNewElement(){
-  if (inputtext.value !=='' && inputcal.value !==''){
-    request.addElementDatabase(JSON.stringify(getInputData()),function(response) {
-      display.displayNew(response,getInputData());
-    }
-  )}
-}
-
-function get() {
-  request.getAllfromDatabase(function(response) {
-    display.displayAll(JSON.parse(response));
-  })
-}
-
-function findRow(event) {
-  if ((typeof((event.target).parentNode.dataset.id)) !== 'undefined'){
-    lastId = (event.target).parentNode.dataset.id
-  } else {
-    lastId = (event.target).dataset.id
+  function getAll() {
+    request.getAllfromDatabase(function(response) {
+      display.showAll(JSON.parse(response));
+    })
   }
-  display.displaySelect(lastId)
-  return lastId
-}
 
-function deleteElement(event) {
-  request.deleteElement((lastId),function(response) {
-    console.log(response);
-    if (response === '{"status":"ok"}'){
-      display.deleteDisplay(lastId)
-    };
-  })
-}
+  function getbyfilter() {
+    let filter = inputdate.value.substring(0,10);
+    request.getFilterfromDatabase(filter,function(response) {
+      display.filter(response);
+    })
+  }
 
+  function showAll() {
+    display.deleteAll()
+    getAll();
+  }
 
+  function addNewElement(){
+    display.hidden();
+    if (inputtext.value !=='' && inputcal.value !=='' && inputdate.value !==''){
+      request.addElementDatabase(JSON.stringify(domMovements.getInputData()),function(response) {
+        display.showNew(response,domMovements.getInputData());
+        }
+    )}
+  }
 
+  function sum(){
+    var allLi= document.querySelectorAll('li');
+    var total = 0
+    for (let i = 0; i < allLi.length; i++) {
+    total +=parseInt(allLi[i].dataset.calories);
+    }
+    create.createSum(total)
+  }
 
+  function deleteElement(event) {
+    if (lastId && display.confirmWindow()) {
+      request.deleteElement((lastId),function(response) {
+        if (response === '{"status":"ok"}'){
+          display.deleteMeal(lastId)
+        };
+      })
+    }
+  }
 
-get()
+  return {
+    getAll,
+    getbyfilter,
+    showAll,
+    addNewElement,
+    deleteElement,
+    sum,
+  };
+}());
+
+display.hidden()
+controller.getAll()

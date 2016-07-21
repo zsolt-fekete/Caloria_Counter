@@ -9,7 +9,7 @@ app.use(bodyParser.json())
 app.use(express.static('./client'));
 
 app.get('/meals', function(req, res) {
-  db.getAll(function (meals){
+  db.getdata(req, function (meals){
     res.json(meals)
   });
 });
@@ -25,11 +25,5 @@ app.delete('/meals/:id',function(req, res) {
     res.json(result);
   });
 });
-
-
-
-
-
-
 
 app.listen(3000);

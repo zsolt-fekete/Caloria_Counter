@@ -19,8 +19,13 @@ const request = (function(){
     xhrRequest('GET', host, null, callback);
   }
 
+  function getFilterfromDatabase(filter, callback) {
+    let url = host + '?key1='+filter
+    xhrRequest('GET', url, null, callback);
+  }
+
   function addElementDatabase(inputdata, callback) {
-    console.log(inputdata.name);
+    console.log(inputdata);
     xhrRequest('POST', host, inputdata, callback);
   }
 
@@ -32,5 +37,6 @@ const request = (function(){
     deleteElement,
     getAllfromDatabase,
     addElementDatabase,
+    getFilterfromDatabase,
   };
 }());

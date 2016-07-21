@@ -10,19 +10,30 @@
     <main>
       <h1>Caloria_Counter</h1>
       <form class="button" id="my-form" action="#">
-        <input  class="text_input" type="text" required  placeholder=" Type..."/>
-        <input  class="calories_input" type="number" required/>
-        <input  class="date_input" type="datetime-local" required/>
+      <div class="add_cointainer">
+        <p class="sentence">I ate a</p>
+        <input  class="text_input" type="text" required  placeholder="Food "/>
+        <p class="sentence">what is contains</p>
+        <input  class="calories_input" type="number" placeholder="Number "/>
+        <p class="sentence"> calories at </p>
+        <input  class="date_input" type="datetime-local" placeholder=" Date "/>
+      </div>
       <div class=buttons>
-        <button class="add_button" type="submit">Add</button>
-        <button class="delete_button" >delete</button>
-        <button class="filter_button" >filter</button>
+        <button class="add_button">Add</button>
+        <button class="delete_button" >Delete</button>
+        <button class="filter_button" >Filter</button>
+        <button class="show_button" >ShowAll</button>
       </div>
       </form>
-      <ul class="meals"></ul>
+      <ul class="meals">
+        <p><span class='Food'>Food</span><span class='Calories'>Calories</span><span class='Date'>Date</span></p>
+      </ul>
+      <h2>Sum of your calories:   <span class="sum"></span> kcal</h2>
     </main>
     <script src="request.js"></script>
     <script src="display.js"></script>
+    <script src="create.js"></script>
     <script src="index.js"></script>
+    <script src="dom.js"></script>
   </body>
 </html>

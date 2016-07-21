@@ -2,62 +2,65 @@
 
 const display = (function(){
 
-  function displayAll(response){
-    response.forEach(function (e) {createRow(e)});
+  function filter(response){
+    deleteAll()
+    showAll(JSON.parse(response));
   }
 
-  function displayNew(response,inputdata){
-    createNewRow(inputdata,(JSON.parse(response).id));
+  function deleteAll(){
+    let oldul = document.querySelector('ul');
+    let main = document.querySelector('main');
+    main.removeChild(oldul);
+    create.createNewUl(main);
   }
 
-  function createNewRow(row,id) {
-    const ul = document.querySelector('ul');
-    const li = document.createElement('li');
-    li.dataset.id = id;
-    li.dataset.name = row.name;
-    li.dataset.calories = row.calories;
-    let date =row.date.substring(0,10)+" "+row.date.substring(11,19)
-    li.dataset.date = date;
-    li.innerHTML =
-    `<span class="name_column">${row.name}</span>
-     <span class="calories_column">${row.calories}</span>
-     <span class="date_column">${date}</span>`
-    ul.appendChild(li);
+  function showAll(response){
+    response.forEach(function (e) {create.createRow(e)});
+    controller.sum()
   }
 
-  function createRow(row) {
-    const ul = document.querySelector('ul');
-    const li = document.createElement('li');
-    li.dataset.id = row.id;
-    li.dataset.name = row.name;
-    li.dataset.calories = row.calories;
-    let date =row.date.substring(0,10)+" "+row.date.substring(11,19)
-    li.dataset.date = date;
-    li.innerHTML =
-    `<span class="name_column">${row.name}</span>
-     <span class="calories_column">${row.calories}</span>
-     <span class="date_column">${date}</span>`
-    ul.appendChild(li);
+  function showNew(response,inputdata){
+    create.createNewRow(inputdata,(JSON.parse(response).id));
+    controller.sum();
   }
 
-  function deleteDisplay(id){
+  function deleteMeal(id){
     let li = document.querySelector('li[data-id="'+id+'"]');
     let ul = document.querySelector('ul');
     ul.removeChild(li);
+    controller.sum()
   }
 
-  function displaySelect(id){
+  function confirmWindow(){
+    const r = confirm("Are you sure you want to delete?")
+    if (r == true) {
+        return true;
+    } else {
+        return false;
+    }
+  }
+
+  function selectMeal(id){
     let li = document.querySelector('li[data-id="'+id+'"]');
-    var selected = document.querySelector('.selected');
+    let selected = document.querySelector('.selected');
     if (selected !== null){
       selected.classList.remove('selected')
     }
     li.classList.add('selected')
   }
+
+  function hidden(){
+    let addScreen = document.querySelector('.add_cointainer');
+    addScreen.classList.toggle('hidden')
+  }
   return {
-    displayAll,
-    displayNew,
-    deleteDisplay,
-    displaySelect,
+    showAll,
+    showNew,
+    deleteMeal,
+    selectMeal,
+    filter,
+    deleteAll,
+    confirmWindow,
+    hidden,
   };
 }());

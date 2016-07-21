@@ -9,7 +9,6 @@ const con = mysql.createConnection({
   database: 'Caloria',
 });
 
-
 const dbQuerires = (function(con) {
 
   con.connect( function(err) {
@@ -27,8 +26,24 @@ const dbQuerires = (function(con) {
     }
   }
 
-  function getAll(callback) {
-    con.query('SELECT * FROM Caloria;', function(err ,meals){
+  function getdata(req, callback) {
+    if (req.query.key1 === undefined) {
+       getAll(req, callback);
+    } else if (req.query.key1 !== undefined) {
+      getFiltered(req, callback);
+    }
+  }
+
+  function getAll(req, callback) {
+    con.query('SELECT * FROM Caloria', function(err ,meals){
+      errorHandling(err);
+      callback(meals);
+    });
+  }
+
+  function getFiltered(req, callback) {
+    con.query('SELECT * FROM Caloria WHERE Caloria.date LIKE ' + '"' + req.query.key1 + '%' + '";',
+     function(err ,meals){
       errorHandling(err);
       callback(meals);
     });
@@ -42,19 +57,19 @@ const dbQuerires = (function(con) {
    });
   }
 
-  function deleteMeal(id, callback) {;
-  con.query('DELETE FROM Caloria WHERE id ='+id, function(err,response){
-    errorHandling(err);
-    if (response.affectedRows === 1) {
-      callback({status:"ok"});
-    } else if (response.affectedRows === 0) {
-      callback({status: "not exists"});
-    }
+  function deleteMeal(id, callback) {
+    con.query('DELETE FROM Caloria WHERE id ='+id, function(err,response){
+      errorHandling(err);
+      if (response.affectedRows === 1) {
+        callback({status:"ok"});
+      } else if (response.affectedRows === 0) {
+        callback({status: "not exists"});
+      }
   });
 }
 
   return {
-    getAll,
+    getdata,
     addNewMeal,
     deleteMeal,
   }

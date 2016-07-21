@@ -3,27 +3,64 @@ h1 {
   padding-top: 20px;
   font-family: Lato, sans-serif;
   font-size: 64px;
-  color: #AD005F;
+  color: white;
   text-align: center;
 }
 
-body {
+h2 {
   padding-top: 20px;
-  background-color: #00B338;
-  width: 100% ;
+  font-family: Lato, sans-serif;
+  font-size: 24px;
+  color: white;
+  text-align: center;
+  border: 2px solid white;
+  border-radius: 25px;
+  background:transparent;
+  width: 400px;
+  position: fixed;
+  bottom: 10px;
+  left: 520px;
+  padding: 10px;
+}
+
+.sentence {
+  font-size: 20px;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+body {
+  background-image: url("./assets/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
 }
 
 main {
-  background-color: white;
   margin-left: 200px;
   margin-right: 200px;
 }
 
-ul {
-  margin: 0 auto;
-  margin-top: 30px;
-  padding-bottom: 20px;
+input {
+  border: 2px solid white;
+  border-radius: 25px;
+  width:180px;
+}
 
+button {
+  margin-left: 10px;
+  margin-top: 10px;
+  border: 2px solid white;
+  border-radius: 25px;
+  background:transparent;
+  width:100px;
+  color: white;
+  font-size: 18px;
+}
+
+button:hover{
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 form {
@@ -36,11 +73,33 @@ li {
   height: 35px;
   position: relative;
   list-style-type:none;
-  color: #AD005F;
+  color: white;
+  margin-bottom: 3px;
+  border-radius: 25px
+}
+
+ul {
+  margin-left: 10px;
+  margin-top: 10px;
+  border: 2px solid white;
+  border-radius: 25px;
+  background:transparent;
+  color: white;
+  font-size: 18px;
+  }
 }
 
 li:hover {
- background-color: rgba(173, 0, 95, 0.1);
+   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.hidden{
+   display: none;
+   transition:0.5s ease;
+}
+
+.unhidden{
+
 }
 
 .name_column {
@@ -68,5 +127,7 @@ li:hover {
 }
 
 .selected {
-  background-color: red;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 2px solid white;
+  border-radius: 25px
 }
